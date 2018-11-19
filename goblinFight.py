@@ -48,51 +48,65 @@ def fight():
     # These variables are within the function scope...meaning only assesible inside the fight function
     hero_health = 10
     hero_power = 5
+    power_up = 2
+
+    enemyName1 = "Goblin"
     goblin_health= 6
     goblin_power = 2
 
-    #run the game as long as both characters have health > 0
+    enemyName2 = "Dragon"
+    dragon_health = 20
+    dragon_power = 5
 
+    #Select an Enemy at Random
+    randomDance = random.randint(0,1)
+            if (randomDance == 0):
+                enemy = enemyName1
+            else:
+                enemy = enemyName2    
+
+    #run the game as long as both characters have health > 0
     while (hero_health > 0 and goblin_health > 0):
         print""
         print """
-                      _______
-         ..-'`       ````---.
-       .'          ___ .'````.'SS'.
-      /        ..-SS####'.  /SSHH##'.
-     |       .'SSSHHHH##|/#/#HH#H####'.
-    /      .'SSHHHHH####/||#/: \SHH#####\
-   /      /SSHHHHH#####/!||;`___|SSHH###\
--..__    /SSSHHH######.         \SSSHH###\
-`.'-.''--._SHHH#####.'           '.SH####/
-  '. ``'-  '/SH####`/_             `|H##/
-  | '.     /SSHH###|`'==.       .=='/\H|
-  |   `'-.|SHHHH##/\__\/        /\//|~|/
-  |    |S#|/HHH##/             |``  |
-  |    \H' |H#.'`              \    |
-  |        ''`|               -     /
-  |          /H\          .----    /
-  |         |H#/'.           `    /
-  |          \| | '..            /
-  |    ^~DLF   /|    ''..______.'
-   \          //\__    _..-. | 
-    \         ||   ````     \ |_
-     \    _.-|               \| |_
-     _\_.-'   `'''''-.        |   `--.
- ''``    \            `''-;    \ /
-          \      .-'|     ````.' -
-          |    .'  `--'''''-.. |/
-          |  .'               \|
-          |.'"""
+                        _______
+            ..-'`       ````---.
+        .'          ___ .'````.'SS'.
+        /        ..-SS####'.  /SSHH##'.
+        |       .'SSSHHHH##|/#/#HH#H####'.
+        /      .'SSHHHHH####/||#/: \SHH#####\
+    /      /SSHHHHH#####/!||;`___|SSHH###\
+    -..__    /SSSHHH######.         \SSSHH###\
+    `.'-.''--._SHHH#####.'           '.SH####/
+    '. ``'-  '/SH####`/_             `|H##/
+    | '.     /SSHH###|`'==.       .=='/\H|
+    |   `'-.|SHHHH##/\__\/        /\//|~|/
+    |    |S#|/HHH##/             |``  |
+    |    \H' |H#.'`              \    |
+    |        ''`|               -     /
+    |          /H\          .----    /
+    |         |H#/'.           `    /
+    |          \| | '..            /
+    |    ^~DLF   /|    ''..______.'
+    \          //\__    _..-. | 
+        \         ||   ````     \ |_
+        \    _.-|               \| |_
+        _\_.-'   `'''''-.        |   `--.
+    ''``    \            `''-;    \ /
+            \      .-'|     ````.' -
+            |    .'  `--'''''-.. |/
+            |  .'               \|
+            |.'"""
         print""
         print """
-You have %d health and %d power. 
-The goblin has %d health and %d power. 
-What do you want to do?
-1. fight goblin
-2. dance
-3. flee
-> """ % (hero_health, hero_power, goblin_health, goblin_power)
+    You have %d health and %d power. 
+    The goblin has %d health and %d power. 
+    What do you want to do?
+    1. fight goblin
+    2. dance
+    3. flee
+    4. power up
+    > """ % (hero_health, hero_power, goblin_health, goblin_power)
 
         userInput = raw_input()
 
@@ -102,17 +116,17 @@ What do you want to do?
             goblin_health -= hero_power
             print""
             print """
-     ==
-     ||_________________________
-OOOOO||_________________________>
-     ||
-     == """
+        ==
+        ||_________________________
+    OOOOO||_________________________>
+        ||
+        == """
             if (goblin_health < 1):
                 print "Thou hath killithed the goblin."
                 break
 
             else:
-                print "You have done %d damage to the goblin." % hero_power 
+                    print "You have done %d damage to the goblin." % hero_power 
 
         elif (userInput == "2"):
             randomDance = random.randint(0,1)
@@ -141,31 +155,41 @@ OOOOO||_________________________>
             # break statement will end the loop immediately
             break
 
+        elif (userInput == "4"):
+            if (power_up > 0):
+                power_up -= 1
+                hero_health +=4
+                print ""
+                print "Your health increases to %d" %hero_health
+            else:
+                print "You have no power ups left."
+
+
         else: 
             # User entered something we didn't offer
             hero_health -=1
             print "Thou fool. Your health goes down %d for your stupidity. (invalid input)." % hero_health
-        
+            
         # Now it's the goblin's turn (as long as he is alive.)
         if (goblin_health > 0):
             hero_health -= goblin_power
             print """
-                ____  
-             `/(#)#(#) `-
-         `     (#)#(#)  \ ___
-       __(     \ ,,,/    `.  ``.
-      /   \     \,-/      |     \
-     |     `--   ( (      /__   (
-      `   (   `---\ `---._` (    }
-      |   |    \   `----._`.`.  .'
-      .  ( `-)  \     `.  )) )  |
-     /    \ /   /       )    / {
-    /      \   /       (    |  (
-   /    ,\ /\\\        (    |_  \
-  /  /\(  )            /     .`\\\
-  \\/  \             .-' | |  -_
-        \           .'___( )  \ `-.
-                    -'   \/\___\\__\  """
+                    ____  
+                `/(#)#(#) `-
+            `     (#)#(#)  \ ___
+        __(     \ ,,,/    `.  ``.
+        /   \     \,-/      |     \
+        |     `--   ( (      /__   (
+        `   (   `---\ `---._` (    }
+        |   |    \   `----._`.`.  .'
+        .  ( `-)  \     `.  )) )  |
+        /    \ /   /       )    / {
+        /      \   /       (    |  (
+    /    ,\ /\\\        (    |_  \
+    /  /\(  )            /     .`\\\
+    \\/  \             .-' | |  -_
+            \           .'___( )  \ `-.
+                        -'   \/\___\\__\  """
 
             print""
             print "The goblin hits you for %d damage." % goblin_power
