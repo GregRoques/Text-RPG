@@ -5,8 +5,42 @@
 # 2. Dance
 # 3. Flee
 
+# Go get the os module from python
+import os
+import random
+# os.system() will take any Linux command and if python can run it, it will
+
 # Get the hero name from the player
+print """ 
+                   (    )
+                  ((((()))
+                  |o\ /o)|
+                  ( (  _')
+                   (._.  /\__
+                  ,\___,/ '  ')
+    '.,_,,       (  .- .   .    )
+     \   \\     ( '        )(    )
+      \   \\    \.  _.__ ____( .  |
+       \  /\\   .(   .'  /\  '.  )
+        \(  \\.-' ( /    \/    \)
+         '  ()) _'.-|/\/\/\/\/\|
+             '\\ .( |\/\/\/\/\/|
+               '((  \    /\    /
+               ((((  '.__\/__.')
+                ((,) /   ((()   )
+                 "..-,  (()("   /
+            pils  _//.   ((() ."
+          _____ //,/" ___ ((( ', ___
+                           ((  )
+                            / /
+                          _/,/'
+                        /,/,"
+
+------------------------------------------------
+==================Goblin Game=================== """
+print ""
 hero_name= raw_input("What is your name brave adventurer? ")
+print ""
 print "Welcome, %s! Thou art brave!" % hero_name
 
 def fight():
@@ -21,7 +55,38 @@ def fight():
 
     while (hero_health > 0 and goblin_health > 0):
         print""
-        print """You have %d health and %d power. 
+        print """
+                      _______
+         ..-'`       ````---.
+       .'          ___ .'````.'SS'.
+      /        ..-SS####'.  /SSHH##'.
+     |       .'SSSHHHH##|/#/#HH#H####'.
+    /      .'SSHHHHH####/||#/: \SHH#####\
+   /      /SSHHHHH#####/!||;`___|SSHH###\
+-..__    /SSSHHH######.         \SSSHH###\
+`.'-.''--._SHHH#####.'           '.SH####/
+  '. ``'-  '/SH####`/_             `|H##/
+  | '.     /SSHH###|`'==.       .=='/\H|
+  |   `'-.|SHHHH##/\__\/        /\//|~|/
+  |    |S#|/HHH##/             |``  |
+  |    \H' |H#.'`              \    |
+  |        ''`|               -     /
+  |          /H\          .----    /
+  |         |H#/'.           `    /
+  |          \| | '..            /
+  |    ^~DLF   /|    ''..______.'
+   \          //\__    _..-. | 
+    \         ||   ````     \ |_
+     \    _.-|               \| |_
+     _\_.-'   `'''''-.        |   `--.
+ ''``    \            `''-;    \ /
+          \      .-'|     ````.' -
+          |    .'  `--'''''-.. |/
+          |  .'               \|
+          |.'"""
+        print""
+        print """
+You have %d health and %d power. 
 The goblin has %d health and %d power. 
 What do you want to do?
 1. fight goblin
@@ -36,20 +101,79 @@ What do you want to do?
             # subtract goblins health by hero power
             goblin_health -= hero_power
             print""
-            print "You have done %d damage to the goblin." % hero_power 
+            print """
+     ==
+     ||_________________________
+OOOOO||_________________________>
+     ||
+     == """
+            if (goblin_health < 1):
+                print "Thou hath killithed the goblin."
+                break
+
+            else:
+                print "You have done %d damage to the goblin." % hero_power 
+
         elif (userInput == "2"):
-            hero_health += 10
-            print""
-            print """The goblin stares at you in disbelief of your stupidity.
-Little does he know you just gained 10 health. His jaw drops as your wounds heal."""
-            print "Your health is now %d." % hero_health
+            randomDance = random.randint(0,1)
+            if (randomDance == 0):
+                hero_health -=5
+
+                if(hero_health < 1):
+                    print "SMH... %s, you are pathetic!!!" % hero_name
+                    break
+
+                else:
+                    print "You got served! Health reduces to %d." % hero_health
+
+            else:
+                goblin_health -=1
+
+                if (goblin_health < 1):
+                    print "The goblin can't keep up...he admits defeat."
+                    break
+                else:
+                    print "The goblin got served. Goblin health reduces to %d." % goblin_health
+
         elif (userInput == "3"):
             print ""
             print "Goodbye cowardly, %s." % hero_name
             # break statement will end the loop immediately
             break
+
         else: 
             # User entered something we didn't offer
-            print "Thou fool. Thou has stubmledith (invalid input)."
+            hero_health -=1
+            print "Thou fool. Your health goes down %d for your stupidity. (invalid input)." % hero_health
+        
+        # Now it's the goblin's turn (as long as he is alive.)
+        if (goblin_health > 0):
+            hero_health -= goblin_power
+            print """
+                ____  
+             `/(#)#(#) `-
+         `     (#)#(#)  \ ___
+       __(     \ ,,,/    `.  ``.
+      /   \     \,-/      |     \
+     |     `--   ( (      /__   (
+      `   (   `---\ `---._` (    }
+      |   |    \   `----._`.`.  .'
+      .  ( `-)  \     `.  )) )  |
+     /    \ /   /       )    / {
+    /      \   /       (    |  (
+   /    ,\ /\\\        (    |_  \
+  /  /\(  )            /     .`\\\
+  \\/  \             .-' | |  -_
+        \           .'___( )  \ `-.
+                    -'   \/\___\\__\  """
+
+            print""
+            print "The goblin hits you for %d damage." % goblin_power
+            if (hero_health == 0):
+                print "Thou hast been vanquished. Thou suckith."
+                os.system("say Thou hast been vanquished. Thou suckith.")
+                break
+        raw_input("Hit enter to continue.")
+        os.system("clear")
 
 fight()
