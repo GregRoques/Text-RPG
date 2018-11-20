@@ -31,13 +31,14 @@ while(theHero.isAlive()):
             monster = Vampire()
     else:
         monster = Centaur()
-
+    print ""
     print "You have encounterd the terrifying %s" % monster.name
     while(theHero.isAlive() and monster.isAlive()):
 
         print """You have %d health and %d strength.
         The %s has %d health and %d strength.
         You have %d power ups left.
+
         What do you want to do?
         1. Fight %s
         2. Twerk Off
@@ -134,10 +135,11 @@ while(theHero.isAlive()):
         break
     else:
         fightAgain = raw_input("Fight another fiend? Y or N? ") 
-        if (fightAgain != "Y" or "y"):
-            break
-        else: 
+        if fightAgain == "Y" or "y":
             fightCount +=1
+        else: 
+            break
+            
             
   
     

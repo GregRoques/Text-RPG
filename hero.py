@@ -19,12 +19,8 @@ class Hero(object):
     def isDead(self):
         return self.health < 1
 
-    def rage(self):
-            print "%s has gone into a rage as death appraoches. Strength increased!" % theHero.name
-            theHero.strength += 5
-
     def runAway(self):
-        print "%s runnith away in fear. Thou arst a coward." % theHero.name
+        print "%s runnith away in fear. Thou arst a coward." % self.name
 
     def levelup(self,monsterHealth,monsterStrength):
         self.health += monsterHealth/2
