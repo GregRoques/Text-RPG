@@ -1,98 +1,143 @@
+# =========IMPORTS===========
+
+from Hero import Hero
+from Goblin import Goblin
+from Vampire import Vampire
+from Wolf import Wolf
+from Centaur import Centaur
+from random import randint
 import os
 
-# from [NAME OF FILE] import [CLASS] ... makes sense to name same thing (must do it this way in JS)
-from hero import Hero # from hero file this call ONLY imports the "Hero" class
-from Goblin import Goblin
+# =======Input Hero============
 
-# ======The Hero=====
-
-theHero = ("hero_name", 8)
-
-hero_name = raw_input("What is your name brave one: ")
-theHero = ("hero_name", 8)
+print ""
+hero_name = raw_input("What is your name, brave one? ")
+# There is only one Frodo
+theHero = Hero(hero_name)
 theHero.cheerHero()
-goblin = Goblin()
+print""
 
-while (theHero.health > 0 and goblin.health > 0):
-        print""
-    
-        print """
-    You have %d health and %d power. 
-    The goblin has %d health and %d power. 
-    What do you want to do?
-    1. fight goblin
-    2. dance
-    3. flee
-    4. power up
-    > """ % (theHero.health, theHero.power, goblin.health, goblin.power)
+while(theHero.isAlive()):
+    # There are many, many monsters.
+    # get random Monster
+    fightCount = 0
+    if (fightCount < 5):
+        randMonster = randint(1,3)
+        if randMonster == 1:
+            monster = Goblin()
+        if randMonster == 2:
+            monster = Wolf()
+        else:
+            monster = Vampire()
+    else:
+        monster = Centaur()
 
-        userInput = raw_input()
+    print "You have encounterd the terrifying %s" % monster.name
+    while(theHero.isAlive() and monster.isAlive()):
 
-        if (userInput == "1"):
-            # The hero has decided to attack
-            # subtract goblins health by hero power
-            goblin.takeDamage(theHero.power)
-            print""
-     
-            if (goblin.health < 1):
-                print "Thou hath killithed the goblin."
-                break
+        print """You have %d health and %d strength.
+        The %s has %d health and %d strength.
+        You have %d power ups left.
+        What do you want to do?
+        1. Fight %s
+        2. Twerk Off
+        3. Flee
+        4. Power Up
+        """ % (theHero.health,theHero.strength, monster.name, monster.health, monster.strength, theHero.powerUp, monster.name)
+        # Get the user's choice
+        userInput = raw_input("> ")
 
-            else:
-                    print "You have done %d damage to the goblin." % theHero.power
-
-        elif (userInput == "2"):
-            randomDance = random.randint(0,1)
-            if (randomDance == 0):
-                theHero.health -=5
-
-                if(hero.health < 1):
-                    print "SMH... %s, you are pathetic!!!" % theHero.name
-                    break
-
-                else:
-                    print "You got served! Health reduces to %d." % hero.health
-
-            else:
-                goblin.health -=1
-
-                if (goblin.health < 1):
-                    print "The goblin can't keep up...he admits defeat."
-                    break
-                else:
-                    print "The goblin got served. Goblin health reduces to %d." % goblin.health
-
-        elif (userInput == "3"):
-            print ""
-            print "Goodbye cowardly, %s." % theHero.name
-            # break statement will end the loop immediately
-            break
-
-        # elif (userInput == "4"):
-        #     if (power_up > 0):
-        #         power_up -= 1
-        #         theHero.health +=4
-        #         print ""
-        #         print "Your health increases to %d" % theHero.health
-        #     else:
-        #         print "You have no power ups left."
-
-
-        else: 
-            # User entered something we didn't offer
-            theHero.health -=1
-            print "Thou fool. Your health goes down %d for your stupidity. (invalid input)." % hero_health
-            
-        # Now it's the goblin's turn (as long as he is alive.)
-        if (goblin.health > 0):
-            theHero.takeDamage(goblin.power)
+        if userInput == "1":
+            # The hero has decided to attack!
+            # subtract monsters health by hero strength
+            monster.takeDamage(theHero.strength)
+            print "You have done %d damage to the monster!" % theHero.strength
         
-            print "The goblin hits you for %d damage." % goblin.power
-            if (theHero.health == 0):
-                print "Thou hast been vanquished. Thou suckith."
-                os.system("say Thou hast been vanquished. Thou suckith.")
-                break
-        raw_input("Hit enter to continue.")
-        os.system("clear")
+        elif userInput == "2":
+            randomDance = randint(0,1)
+            if (randomDance == 0):
+                theHero.takeDamage(5)
+                if(theHero.isDead()):
+                    print "SMH... %s, you are pathetic." % theHero.name
+                    break
+                else:
+                    print "You got served! Health reduces to %d." % theHero.health
 
-fight()    
+            else:
+                monster.takeDamage(3)
+                if (monster.isAlive()):
+                    print "The %s got served. Its health reduces to %d." % (monster.name, monster.health)
+                    print "The %s has no moves. He humbly admits defeat." % monster.name
+                    break
+                else:
+                    print "The %s has no moves. He humbly admits defeat." % monster.name
+                    
+
+
+        elif userInput == "3":
+            if theHero.speed > monster.speed:
+                theHero.runAway()
+                break
+
+            elif theHero.speed == monster.speed:
+                coinFlip = randint(0,1)
+                if coinFlip == 0:
+                    theHero.runAway()
+                    break
+                else:
+                    theHero.takeDamage(monster.strength)
+                    print """Thou arst slow and cowardly. 
+                    The %s blocks you and inflicts %d damage.
+                    """ % (monster.name, monster.strength)
+            
+            else:
+                theHero.takeDamage(monster.strength)
+                print """Thou arst slow and cowardly. 
+                The %s blocks you and inflicts %d damage.
+                """ % (monster.name, monster.strength)
+
+        elif userInput == "4":
+            if theHero.powerUp > 0:
+                theHero.health += 5
+                theHero.powerUp -= 1
+                print """Your health increases to %d.
+                You have %d power ups left.""" % (theHero.health, theHero.powerUp)    
+            else:
+                print """Thou arst out of power ups.
+                Forfeit turn."""           
+        
+        else:
+            # user entered something that we didnt offer
+            thehero.takeDamage(1)
+            print """Thou need learneth to count. 
+            Your health reduces to %d because of your stupidity.""" % theHero.health
+
+# ====================THE MONSTER'S TURN==============================
+
+        if monster.isAlive():
+            theHero.takeDamage(monster.strength)
+            print "The monster hits you for %d damage" % monster.strength
+            if theHero.isAlive() == False:
+                print "Thou arst dead."
+                os.system("say Thou arst dead.")
+        else:
+            os.system("say Hooray. Thou hast killed the monster!")
+            print "Thou hast killed the monster!"
+            theHero.levelup(monster.health, monster.strength)
+       
+        raw_input("Hit enter to continue")
+        os.system("clear")
+    
+    
+    if (fightCount == 5):
+        print "You slayedeth the Centaur. You are the king of the world."
+        break
+    else:
+        fightAgain = raw_input("Fight another fiend? Y or N? ") 
+        if (fightAgain != "Y" or "y"):
+            break
+        else: 
+            fightCount +=1
+            
+  
+    

@@ -1,12 +1,33 @@
 
 class Hero(object):
-    def __init__(self, name, power = 5):
+    def __init__(self, name):
         self.name = name
-        self.health = 10 
-        self.power = power
+        self.health = 20
+        self.strength = 5
+        self.speed = 5
+        self.powerUp = 2
         
     def cheerHero(self):
-        print "Welcome, brave %s" % (self.name)    
+        print "Welcome, brave %s" % self.name    
 
     def takeDamage(self, ammountOfDamage):
         self.health -= ammountOfDamage
+
+    def isAlive(self):
+        return self.health > 0
+
+    def isDead(self):
+        return self.health < 1
+
+    def rage(self):
+            print "%s has gone into a rage as death appraoches. Strength increased!" % theHero.name
+            theHero.strength += 5
+
+    def runAway(self):
+        print "%s runnith away in fear. Thou arst a coward." % theHero.name
+
+    def levelup(self,monsterHealth,monsterStrength):
+        self.health += monsterHealth/2
+        self.strength += monsterStrength/2
+
+        
