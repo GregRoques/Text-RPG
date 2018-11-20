@@ -17,7 +17,8 @@ theHero = Hero(hero_name)
 theHero.cheerHero()
 print""
 
-while(theHero.isAlive()):
+gameOn = True
+while(theHero.isAlive() and gameOn == True):
     # There are many, many monsters.
     # get random Monster
     fightCount = 0
@@ -52,7 +53,7 @@ while(theHero.isAlive()):
             # The hero has decided to attack!
             # subtract monsters health by hero strength
             monster.takeDamage(theHero.strength)
-            print "You have done %d damage to the monster!" % theHero.strength
+            print "You have done %d damage to the %s!" % (theHero.strength, monster.name)
         
         elif userInput == "2":
             randomDance = randint(0,1)
@@ -132,13 +133,14 @@ while(theHero.isAlive()):
     
     if (fightCount == 5):
         print "You slayedeth the Centaur. You are the king of the world."
-        break
+        gameOn = False
     else:
         fightAgain = raw_input("Fight another fiend? Y or N? ") 
         if fightAgain == "Y" or "y":
             fightCount +=1
         else: 
-            break
+            gameOn = False
+            
             
             
   
