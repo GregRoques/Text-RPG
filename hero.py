@@ -2,10 +2,10 @@
 class Hero(object):
     def __init__(self, name):
         self.name = name
-        self.health = 20
+        self.health = 25
         self.strength = 5
         self.speed = 5
-        self.powerUp = 2
+        self.powerUp = 3
         
     def cheerHero(self):
         print "Welcome, brave %s" % self.name    

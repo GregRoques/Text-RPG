@@ -14,8 +14,8 @@ print ""
 hero_name = raw_input("What is your name, brave one? ")
 # There is only one Frodo
 theHero = Hero(hero_name)
-theHero.cheerHero()
 print""
+theHero.cheerHero()
 
 gameOn = True
 while(theHero.isAlive() and gameOn == True):
@@ -34,9 +34,11 @@ while(theHero.isAlive() and gameOn == True):
         monster = Centaur()
     print ""
     print "You have encounterd the terrifying %s" % monster.name
+    print""
     while(theHero.isAlive() and monster.isAlive()):
 
-        print """You have %d health and %d strength.
+        print """
+        You have %d health and %d strength.
         The %s has %d health and %d strength.
         You have %d power ups left.
 
@@ -66,13 +68,13 @@ while(theHero.isAlive() and gameOn == True):
                     print "You got served! Health reduces to %d." % theHero.health
 
             else:
-                monster.takeDamage(3)
+                monster.takeDamage(5)
                 if (monster.isAlive()):
                     print "The %s got served. Its health reduces to %d." % (monster.name, monster.health)
-                    print "The %s has no moves. He humbly admits defeat." % monster.name
-                    break
+                    
                 else:
                     print "The %s has no moves. He humbly admits defeat." % monster.name
+                    break
                     
 
 
@@ -100,7 +102,7 @@ while(theHero.isAlive() and gameOn == True):
 
         elif userInput == "4":
             if theHero.powerUp > 0:
-                theHero.health += 5
+                theHero.health += 10
                 theHero.powerUp -= 1
                 print """Your health increases to %d.
                 You have %d power ups left.""" % (theHero.health, theHero.powerUp)    
@@ -126,21 +128,25 @@ while(theHero.isAlive() and gameOn == True):
             os.system("say Hooray. Thou hast killed the monster!")
             print "Thou hast killed the monster!"
             theHero.levelup(monster.health, monster.strength)
+            fightCount +=1
        
         raw_input("Hit enter to continue")
         os.system("clear")
     
     
-    if (fightCount == 5):
+    if (fightCount == 3):
         print "You slayedeth the Centaur. You are the king of the world."
         gameOn = False
     else:
-        fightAgain = raw_input("Fight another fiend? Y or N? ") 
-        if fightAgain == "Y" or "y":
-            fightCount +=1
-        else: 
-            gameOn = False
-            
+        if theHero.isAlive():
+            fightAgain = raw_input("Fight another fiend? Y or N? ") 
+            if fightAgain == "Y" or "y":
+                continue
+            else: 
+                gameOn = False
+                break
+        else:
+            gameOn = False    
             
             
   

@@ -5,7 +5,7 @@ class Vampire(object):
         randomStrength = randint(6,8)
         randomSpeed = randint(3,8)
         self.name = "Vampire"
-        self.health = 12
+        self.health = 10
         self.strength = randomStrength
         self.speed = randomSpeed
 

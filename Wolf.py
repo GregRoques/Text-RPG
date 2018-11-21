@@ -5,7 +5,7 @@ class Wolf(object):
         randomStrength = randint(6,8)
         randomSpeed = randint(3,8)
         self.name = "Wolf"
-        self.health = 14
+        self.health = 15
         self.strength = randomStrength
         self.speed = randomSpeed
 
